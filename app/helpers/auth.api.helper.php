@@ -74,12 +74,12 @@ class AuthApiHelper{
     function getToken(){
         $header = $this->getHeader();
         //Bearer token(ksakdhasjkjdbsfcjnjbsl)
-        if(strpos($header, "Bearer ") === 0){
+        if(strpos($header, "Bearer ") === 0) {
             $token = explode(" ", $header)[1];
             //obtener cada parte header - payload - signature
             $parts = explode(".", $token);
 
-            if(count($parts) ===3){
+            if(count($parts) === 3) {
                 $header = $parts[0];
                 $payload = $parts[1];
                 $signature = $parts[2];
@@ -96,9 +96,9 @@ class AuthApiHelper{
         return null;
     }
 
-    function isLoggedIn(){
+    function isLoggedIn() {
         $payload = $this->getToken();
-        if(isset($payload->sub)) /// xq mira si esta seteado el id????? 
+        if(isset($payload->sub))
             return true;
         else
             return false;

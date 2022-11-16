@@ -1,13 +1,13 @@
 <?php
 
-class TipePropertyModel{
+class TypePropertyModel{
     private $db;
 
-    function __construct(){
-        $this->db = $this->conectar();
+    function __construct() {
+        $this->db = $this->connect();
     }
     
-    private function conectar(){
+    private function connect() {
         $db = new PDO('mysql:host=localhost;'.'dbname=inmobiliaria;charset=utf8', 'root', '');
         return $db;
     }
@@ -18,6 +18,4 @@ class TipePropertyModel{
         $tiposPropiedad = $query->fetchAll(PDO::FETCH_OBJ);
         return $tiposPropiedad;
     }
-    
-    
 }

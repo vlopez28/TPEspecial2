@@ -5,7 +5,7 @@ require_once './app/views/api.view.php';
 require_once './app/helpers/auth.api.helper.php';
 
 
-class PropertiesApiController{
+class PropertiesApiController {
     private $model;
     private $view;
     private $data;
@@ -21,9 +21,9 @@ class PropertiesApiController{
     //los valores posibles de tipo de orden
     const AVAILABLE_ORDER = array('asc', 'desc');
     
-    function __construct(){
+    function __construct() {
         $this->model = new PropertyModel();
-        $this->modelTipeProperty = new TipePropertyModel();
+        $this->modelTipeProperty = new TypePropertyModel();
         $this->view = new ApiView();
         $this->data = file_get_contents("php://input");
         $this->authHelper = new AuthApiHelper();
@@ -122,9 +122,9 @@ class PropertiesApiController{
         $body = $this->getData();
         if(empty($body->direccion) || empty($body->habitaciones) || 
            empty($body->banios) || empty($body->patio) || empty($body->tipo_contrato) || 
-           empty($body->moneda) || empty($body->precio) || empty($body->tipo)){
+           empty($body->moneda) || empty($body->precio) || empty($body->tipo)) {
            
-            $this->view->response("fill in the data", 400); //esta bien este error??
+            $this->view->response("All fields are required", 400); //esta bien este error??
         } else{
                 $verifyTypeProperty = $this->verifyTypeProperty($body->tipo);
                 if(!$verifyTypeProperty){
@@ -153,10 +153,10 @@ class PropertiesApiController{
                empty($body->banios) || empty($body->patio) || empty($body->tipo_contrato) || 
                empty($body->moneda) || empty($body->precio) || empty($body->tipo)){
            
-                $this->view->response("fill in the data", 400);
+                $this->view->response("All fields are required", 400);
             } else{
                 $verifyTypeProperty = $this->verifyTypeProperty($body->tipo);
-                if(!$verifyTypeProperty){
+                if(!$verifyTypeProperty) {
                     $this->view->response("Type property not exist", 400);
                 } else{ 
                     $this->model->update($id, $body->tipo, $body->direccion, $body->habitaciones,
@@ -165,8 +165,8 @@ class PropertiesApiController{
                     $this->view->response("Property id=$id successfully updated", 200);
                 }
             }
-        }else {
-                $this->view->response("Property id=$id not found", 404);
+        } else {
+            $this->view->response("Property id=$id not found", 404);
         } 
     }                            
 }
