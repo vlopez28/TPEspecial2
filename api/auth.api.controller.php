@@ -18,16 +18,16 @@ class AuthApiController {
     }
 
     function getToken($params = null){
-        //es un arreglo
+      
         $userPass = $this->authHelper->getBasic();
         $user = $userPass["user"];
         $password = $userPass["pass"]; 
-        //obtengo el usuario de la bbdd
+        
         $userDb = $this->model->getUser($userPass["user"]);
-        //si el usuario existe y las contrasenias coinciden
+        
         if($user == $userDb->email && password_verify($password, $userDb->password)){
             $token = $this->authHelper->createToken($userPass);
-            //devolver un token
+        
             $this->view->response(["token"=>$token]);
         } else{
             $this->view->response("usuario y/o contraseña invalidos", 401);//codigo no autorizado

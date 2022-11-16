@@ -4,7 +4,6 @@ class ApiView{
     function response($dato, $code = 200){ 
         header("Content-Type: application/json");
         header("HTTP/1.1 " . $code . " " . $this->requestStatus($code));
-        //funcion de php que le doy un arreglo y lo pasa a json
         echo json_encode($dato);
     }
 

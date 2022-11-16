@@ -14,11 +14,9 @@ class PropertiesApiController {
     const DEFAULT_LIMIT = 100;
     const DEFAULT_OFF_SET = 0;
     const DEFAULT_SORT = 'id';
-    //valores posibles por los cuales se puede ordenar 
     const AVAILABLE_SORT = array('id','direccion', 'habitaciones', 'banios', 'patio', 'tipo_contrato', 
                                  'moneda', 'precio');
     const DEFAULT_ORDER = 'asc';
-    //los valores posibles de tipo de orden
     const AVAILABLE_ORDER = array('asc', 'desc');
     
     function __construct() {
@@ -32,9 +30,7 @@ class PropertiesApiController {
     private function getData() {
         return json_decode($this->data);
     }
-    //chequea que este setado que no este vacia y que este en el array y sino retorna el valor x defecto 
-    //$_get es un array asociativo primero me fijo que exista con el isset y luego me fijo sino esta vacio
-    //y si me fijo en mi array si se cumple retorno el valor que tiene el conjunto de queryparams para esa key
+    
     private function queryParamsValidator($key, $list, $defaultValue){
         if(isset($_GET[$key]) && !empty($_GET[$key]) && in_array(strtolower($_GET[$key]), $list, true)){
             return $_GET[$key]; 
@@ -42,9 +38,7 @@ class PropertiesApiController {
  
          return $defaultValue;
     }
-    //llamo a funcion y le paso la key(que es el nombre del parametro que recibo en la url)que necesito 
-    //validar, el arreglo de posibles valores y el valor por defecto que 
-    //elegi que se use si no pasa la validacion 
+    
     private function validateSort(){
         return $this->queryParamsValidator('sort', self::AVAILABLE_SORT, self::DEFAULT_SORT);
     }
@@ -62,9 +56,9 @@ class PropertiesApiController {
 
     private function validateQueryParamsPagination($key, $defaultValue){
         if(isset($_GET[$key]) && is_numeric($_GET[$key])) {
-            return intval($_GET[$key]); //esta bien castearlo??
+            return intval($_GET[$key]); 
         } 
- 
+
         return $defaultValue;
     }
 
